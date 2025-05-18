@@ -44,7 +44,11 @@ class TestOGMPossibleActions(unittest.TestCase):
         final_matrix[4,5,4] = 3
         final_module_positions = {1: (4, 4, 4), 2: (3, 5, 4), 3: (4, 5, 4)}
 
-        ogm = occupancy_grid_map.occupancy_grid_map(matrix, final_matrix, module_positions, final_module_positions, 3)
+        num_modules = len(module_positions)
+        ogm = occupancy_grid_map.occupancy_grid_map(
+            matrix, final_matrix, module_positions, final_module_positions, num_modules
+        )
+        
         ogm.init_actions()
         # Expected actions (from input)
         expected_actions = {
