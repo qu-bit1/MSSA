@@ -22,7 +22,6 @@ class TestOGMPossibleActions(unittest.TestCase):
         G = nx.Graph()
         for i, pos_i in module_positions.items():
             for j, pos_j in module_positions.items():
-                # if i < j and np.linalg.norm(np.array(pos_i) - np.array(pos_j)) == 1: not using l2 norm because l1 norm and l2 norm are same for 1 equality.
                 if i < j and np.sum(np.abs(np.array(pos_i) - np.array(pos_j))) == 1:
                     G.add_edge(i, j)
         if module_id not in G:
