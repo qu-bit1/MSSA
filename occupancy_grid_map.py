@@ -193,7 +193,7 @@ class occupancy_grid_map:
           #print(p)
           #ipdb.set_trace()
     print(f"Possible actions: ")
-    print(self.possible_actions)
+    #print(self.possible_actions)
 
     for m in self.modules:
       print(np.where(self.possible_actions[m])[0] + 1)

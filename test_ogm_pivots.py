@@ -11,12 +11,14 @@ class TestOGMPossibleActions(unittest.TestCase):
         act = {}
         for m in ogm.modules:
             # Convert binary pivot array to list of action indices (1-indexed)
-            act[m] = list(np.where(actual_actions[m])[0] + 1)
+            act[m] = set(np.where(actual_actions[m])[0] + 1)
 
+        expected_sets = {k : set(v) for k, v in expected_actions.items()}
+        
         # Compare with expected action sets
         self.assertEqual(
-            act, expected_actions,
-            msg=f"\nExpected: {expected_actions}\nActual:   {act}"
+            act, expected_sets,
+            msg=f"\nExpected: {expected_sets}\nActual:   {act}"
         )
 
     def is_articulation_point(self, module_id, module_positions):
