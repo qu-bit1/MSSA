@@ -83,7 +83,7 @@ class TestOGMPossibleActions(unittest.TestCase):
         num_modules = len(module_positions)
 
         # Instantiate OGM object
-        ogm = occupancy_grid_map.occupancy_grid_map(matrix, final_matrix, module_positions, final_module_positions, num_modules)
+        ogm = occupancy_grid_map.occupancy_grid_map(module_positions, final_module_positions, num_modules)
         ogm.init_actions()
 
         # Expected pivot actions per module (from prior analysis)
