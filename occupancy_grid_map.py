@@ -45,6 +45,7 @@ class occupancy_grid_map:
     self.modules = range(1, n+1)
     self.edges = self.calculate_edges(self.modules, self.module_positions)
     self.rotation_matrices()
+    self.init_actions()
 
   def calculate_grid_size(self, n):
     """Calculate grid size based on number of modules.
