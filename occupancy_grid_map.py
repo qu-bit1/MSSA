@@ -2,25 +2,111 @@ import math
 import numpy as np
 
 class occupancy_grid_map:
-  def __init__(self, matrix, final_matrix, module_positions, final_module_positions, n):
-    self.grid_map = matrix
-    self.curr_grid_map = matrix
-    self.final_grid_map = final_matrix
-    # modules track their own position via a dictionary
-    self.module_positions = module_positions
-    self.final_module_positions = final_module_positions
+  def __init__(self, module_positions, final_module_positions, n):
+    """Initialize the occupancy grid map with module positions.
+    
+    Args:
+        module_positions: Dictionary mapping module numbers to their positions (x,y,z)
+        final_module_positions: Dictionary mapping module numbers to their goal positions (x,y,z)
+        n: Number of modules
+    """
+    # Validate inputs
+    if not module_positions or not final_module_positions:
+        raise ValueError("Module positions dictionaries cannot be empty")
+    if n <= 0:
+        raise ValueError("Number of modules must be positive")
+    
+    # Store original module positions before recentering
+    self.original_module_positions = module_positions.copy()
+    self.original_final_module_positions = final_module_positions.copy()
+    
+    # Calculate grid size based on number of modules
+    grid_size = self.calculate_grid_size(n)
+    
+    # Create grid maps with appropriate size
+    self.grid_map = np.zeros((grid_size, grid_size, grid_size))
+    self.curr_grid_map = np.zeros((grid_size, grid_size, grid_size))
+    self.final_grid_map = np.zeros((grid_size, grid_size, grid_size))
+    
+    # Recenter module positions so that module 1 is at the center of the grid
+    self.module_positions, self.final_module_positions = self.recenter_initial_positions(
+        module_positions, final_module_positions, grid_size)
+    
+    # Initialize grid maps with recentered module positions
+    for module, pos in self.module_positions.items():
+        self.grid_map[pos[0], pos[1], pos[2]] = module
+        self.curr_grid_map[pos[0], pos[1], pos[2]] = module
+    
+    for module, pos in self.final_module_positions.items():
+        self.final_grid_map[pos[0], pos[1], pos[2]] = module
+    
+    # Set reference position for recentering during operations
     self.recenter_to = self.module_positions[1]
     self.modules = range(1, n+1)
     self.edges = self.calculate_edges(self.modules, self.module_positions)
     self.rotation_matrices()
+    self.init_actions()
 
-  # do we want to check connectivity?
-  # for now assume connectivity
-
-  # what is the maximum size of thhe matrix? 2n x 2n x 2n where n is number of modules
-  # (0,0,0) shoule be the top-left most corner; grid_map should be padded out with zeros
-  def initialize_empty_grid_map(self, n):
-    self.grid_map = np.zeros(2 * n)
+  def calculate_grid_size(self, n):
+    """Calculate grid size based on number of modules.
+    
+    Args:
+        n: Number of modules
+        
+    Returns:
+        Grid size (same for all dimensions)
+    """
+    # Ensure minimum grid size of 5x5x5
+    # For larger module counts, use a formula that scales with module count
+    # Using n*2+3 as a simple scaling formula
+    return max(5, n*2+3)
+  
+  def recenter_initial_positions(self, module_positions, final_module_positions, grid_size):
+    """Recenter module positions so that module 1 is at the center of the grid.
+    
+    Args:
+        module_positions: Original module positions dictionary
+        final_module_positions: Original final module positions dictionary
+        grid_size: Size of the grid
+        
+    Returns:
+        Tuple of (recentered module positions, recentered final module positions)
+    """
+    # Calculate center of the grid
+    grid_center = grid_size // 2
+    
+    # Get position of module 1
+    if 1 not in module_positions:
+        raise ValueError("Module 1 must exist in the module positions dictionary")
+    
+    module1_pos = module_positions[1]
+    
+    # Calculate offset to move module 1 to grid center
+    offset = (
+        grid_center - module1_pos[0],
+        grid_center - module1_pos[1],
+        grid_center - module1_pos[2]
+    )
+    
+    # Apply offset to all module positions
+    recentered_positions = {}
+    for module, pos in module_positions.items():
+        recentered_positions[module] = (
+            pos[0] + offset[0],
+            pos[1] + offset[1],
+            pos[2] + offset[2]
+        )
+    
+    # Apply offset to all final module positions
+    recentered_final_positions = {}
+    for module, pos in final_module_positions.items():
+        recentered_final_positions[module] = (
+            pos[0] + offset[0],
+            pos[1] + offset[1],
+            pos[2] + offset[2]
+        )
+    
+    return recentered_positions, recentered_final_positions
 
   # recenter the grid_map so that a module (the first one for now) is at (0,0,0)
   def recenter(self):
