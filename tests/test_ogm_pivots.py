@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-import ogm.occupancy_grid_map as occupancy_grid_map
+from ogm import occupancy_grid_map
 import networkx as nx
 
 class TestOGMPossibleActions(unittest.TestCase):
