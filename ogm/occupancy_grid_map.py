@@ -1,7 +1,6 @@
-import math
 import numpy as np
 
-class occupancy_grid_map:
+class OccupancyGridMap:
   def __init__(self, module_positions, final_module_positions, n):
     """Initialize the occupancy grid map with module positions.
     
@@ -514,25 +513,3 @@ class occupancy_grid_map:
 
       # If no articulation points are found, return list containing -1
       return result if result else [-1]
-
-
-
-class agent:
-  #def __init__(self):
-
-  def select_action(self, available_actions, num_modules):
-    actions_to_take = {}
-
-    for m in range(1,num_modules+1):
-      actions_to_take[m] = np.where(available_actions[m])[0] + 1
-
-    module = np.random.randint(1,m+1)
-    actions = actions_to_take[module]
-
-    while len(actions) < 1:
-      module = np.random.randint(1,m+1)
-      actions = actions_to_take[module]
-
-    return (module, actions[np.random.randint(len(actions))])
-
-
