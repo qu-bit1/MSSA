@@ -127,54 +127,54 @@ class OccupancyGridMap:
   # define possible actions in terms of a dictionary of a list of vectors from module to other necessary modules and a list of vectors from module to necessary empty spaces for keys, and values are vectors where the module ends up.
   # actually use the slices as in the problem formulation. possible_actions is a dictionary with modules as keys and a 48 boolean long list as values.
   def init_actions(self):
-    self.potential_pivots = {1: np.array([[False, True, True], [False, False, True]]),
-                             2: np.array([[False, True, True], [False, False, False], [False, False, False]]),
-                             3: np.array([[True, True, False], [True, False, False]]),
-                             4: np.array([[True, True, False], [False, False, False], [False, False, False]]),
-                             5: np.array([[False, False], [False, True], [True, True]]),
-                             6: np.array([[False, False, False], [False, False, True], [False, False, True]]),
-                             7: np.array([[False, False], [True, False], [True, True]]),
-                             8: np.array([[False, False, False], [True, False, False], [True, False, False]]),
-                             9: np.array([[False, False, True], [False, True, True]]),
-                             10: np.array([[False, False, False], [False, False, False], [False, True, True]]),
-                             11: np.array([[True, False, False], [True, True, False]]),
-                             12: np.array([[False, False, False], [False, False, False], [True, True, False]]),
-                             13: np.array([[True, True], [False, True], [False, False]]),
-                             14: np.array([[False, False, True], [False, False, True], [False, False, False]]),
-                             15: np.array([[True, True], [True, False], [False, False]]),
-                             16: np.array([[True, False, False], [True, False, False], [False, False, False]]),
-                             17: np.array([[False, True, True], [False, False, True]]),
-                             18: np.array([[False, True, True], [False, False, False], [False, False, False]]),
-                             19: np.array([[True, True, False], [True, False, False]]),
-                             20: np.array([[True, True, False], [False, False, False], [False, False, False]]),
-                             21: np.array([[False, False], [False, True], [True, True]]),
-                             22: np.array([[False, False, False], [False, False, True], [False, False, True]]),
-                             23: np.array([[False, False], [True, False], [True, True]]),
-                             24: np.array([[False, False, False], [True, False, False], [True, False, False]]),
-                             25: np.array([[False, False, True], [False, True, True]]),
-                             26: np.array([[False, False, False], [False, False, False], [False, True, True]]),
-                             27: np.array([[True, False, False], [True, True, False]]),
-                             28: np.array([[False, False, False], [False, False, False], [True, True, False]]),
-                             29: np.array([[True, True], [False, True], [False, False]]),
-                             30: np.array([[False, False, True], [False, False, True], [False, False, False]]),
-                             31: np.array([[True, True], [True, False], [False, False]]),
-                             32: np.array([[True, False, False], [True, False, False], [False, False, False]]),
-                             33: np.array([[False, True, True], [False, False, True]]),
-                             34: np.array([[False, True, True], [False, False, False], [False, False, False]]),
-                             35: np.array([[True, True, False], [True, False, False]]),
-                             36: np.array([[True, True, False], [False, False, False], [False, False, False]]),
-                             37: np.array([[False, False], [False, True], [True, True]]),
-                             38: np.array([[False, False, False], [True, False, False], [True, False, False]]), # moved Trues to first column
-                             39: np.array([[False, False], [True, False], [True, True]]),
-                             40: np.array([[False, False, False], [True, False, False], [True, False, False]]),
-                             41: np.array([[False, False, True], [False, True, True]]),
-                             42: np.array([[False, False, False], [False, False, False], [False, True, True]]),
-                             43: np.array([[True, False, False], [True, True, False]]),
-                             44: np.array([[False, False, False], [False, False, False], [True, True, False]]),
-                             45: np.array([[True, True], [False, True], [False, False]]),
-                             46: np.array([[False, False, True], [False, False, True], [False, False, False]]),
-                             47: np.array([[True, True], [True, False], [False, False]]),
-                             48: np.array([[True, False, False], [True, False, False], [False, False, False]])
+    self.potential_pivots = {1: np.array([[True, True, False], [True, False, False]]), #fixed
+                             2: np.array([[True, True, False], [False, False, False], [False, False, False]]), #fixed
+                             3: np.array([[False, True, True], [False, False, True]]), #fixed
+                             4: np.array([[False, True, True], [False, False, False], [False, False, False]]), #fixed
+                             5: np.array([[False, False], [True, False], [True, True]]), #fixed
+                             6: np.array([[False, False, False], [True, False, False], [True, False, False]]), #fixed
+                             7: np.array([[False, False], [False, True], [True, True]]), #fixed
+                             8: np.array([[False, False, False], [False, False, True], [False, False, True]]), #fixed
+                             9: np.array([[True, False, False], [True, True, False]]), #fixed
+                             10: np.array([[False, False, False], [False, False, False], [True, True, False]]), #fixed
+                             11: np.array([[False, False, True], [False, True, True]]), #fixed
+                             12: np.array([[False, False, False], [False, False, False], [False, True, True]]), #fixed
+                             13: np.array([[True, True], [True, False], [False, False]]), #fixed
+                             14: np.array([[True, False, False], [True, False, False], [False, False, False]]), #fixed
+                             15: np.array([[True, True], [False, True], [False, False]]), #fixed
+                             16: np.array([[False, False, True], [False, False, True], [False, False, False]]), #fixed
+                             17: np.array([[True, True, False], [True, False, False]]), #fixed
+                             18: np.array([[True, True, False], [False, False, False], [False, False, False]]), #fixed
+                             19: np.array([[False, True, True], [False, False, True]]), #fixed
+                             20: np.array([[False, True, True], [False, False, False], [False, False, False]]), #fixed
+                             21: np.array([[False, False], [True, False], [True, True]]), #fixed
+                             22: np.array([[False, False, False], [True, False, False], [True, False, False]]), #fixed
+                             23: np.array([[False, False], [False, True], [True, True]]), #fixed
+                             24: np.array([[False, False, False], [False, False, True], [False, False, True]]), #fixed
+                             25: np.array([[True, False, False], [True, True, False]]), #fixed
+                             26: np.array([[False, False, False], [False, False, False], [True, True, False]]), #fixed
+                             27: np.array([[False, False, True], [False, True, True]]), #fixed
+                             28: np.array([[False, False, False], [False, False, False], [False, True, True]]), #fixed
+                             29: np.array([[True, True], [True, False], [False, False]]), #fixed
+                             30: np.array([[True, False, False], [True, False, False], [False, False, False]]), #fixed
+                             31: np.array([[True, True], [False, True], [False, False]]), #fixed
+                             32: np.array([[False, False, True], [False, False, True], [False, False, False]]), #fixed
+                             33: np.array([[True, True, False], [True, False, False]]), #fixed
+                             34: np.array([[True, True, False], [False, False, False], [False, False, False]]), #fixed
+                             35: np.array([[False, True, True], [False, False, True]]), #fixed
+                             36: np.array([[False, True, True], [False, False, False], [False, False, False]]), #fixed
+                             37: np.array([[False, False], [True, False], [True, True]]), #fixed
+                             38: np.array([[False, False, False], [True, False, False], [True, False, False]]), #fixed
+                             39: np.array([[False, False], [False, True], [True, True]]), #fixed
+                             40: np.array([[False, False, False], [False, False, True], [False, False, True]]), #fixed
+                             41: np.array([[True, False, False], [True, True, False]]), #fixed
+                             42: np.array([[False, False, False], [False, False, False], [True, True, False]]), #fixed
+                             43: np.array([[False, False, True], [False, True, True]]), #fixed
+                             44: np.array([[False, False, False], [False, False, False], [False, True, True]]), #fixed
+                             45: np.array([[True, True], [True, False], [False, False]]), #fixed
+                             46: np.array([[True, False, False], [True, False, False], [False, False, False]]), #fixed
+                             47: np.array([[True, True], [False, True], [False, False]]), #fixed
+                             48: np.array([[False, False, True], [False, False, True], [False, False, False]]) #fixed
                              }
 
     # 3 rows for x, y, z, respectively, with start, stop
@@ -184,64 +184,54 @@ class OccupancyGridMap:
                    4: np.array([[0,2], [-1,1], [0,0]]),
                    5: np.array([[-1,1], [0,1], [0,0]]),
                    6: np.array([[-1,1], [0,2], [0,0]]),
-                   7: np.array([[-1,1], [0,-1], [0,0]]), # does the negative stuff work?
-                   #7: np.array([[-1,1], [-1,0], [0,0]]), # does the negative stuff work?
-                   8: np.array([[-1,1], [0,-2], [0,0]]), # does the negative stuff work?
-                   #8: np.array([[-1,1], [-2,0], [0,0]]), # does the negative stuff work?
+                   7: np.array([[-1,1], [-1,0], [0,0]]), # does the negative stuff work?
+                   8: np.array([[-1,1], [-2,0], [0,0]]), # does the negative stuff work?
                    9: np.array([[-1,0], [-1,1], [0,0]]),
                    10: np.array([[-2,0], [-1,1], [0,0]]),
                    11: np.array([[-1,0], [-1,1], [0,0]]),
                    12: np.array([[-2,0], [-1,1], [0,0]]),
                    13: np.array([[-1,1], [0,1], [0,0]]),
                    14: np.array([[-1,1], [0,2], [0,0]]),
-                   15: np.array([[-1,1], [0,-1], [0,0]]), # does the negative stuff work?
-                   #15: np.array([[-1,1], [-1,0], [0,0]]), # does the negative stuff work?
-                   16: np.array([[-1,1], [0,-2], [0,0]]), # does the negative stuff work? # now switch which dimension stays the same
-                   #16: np.array([[-1,1], [-2,0], [0,0]]), # does the negative stuff work? # now switch which dimension stays the same
+                   15: np.array([[-1,1], [-1,0], [0,0]]), # does the negative stuff work?
+                   16: np.array([[-1,1], [-2,0], [0,0]]), # does the negative stuff work? # now switch which dimension stays the same
                    17: np.array([[0,1], [0,0], [-1,1]]),
                    18: np.array([[0,2], [0,0], [-1,1]]),
                    19: np.array([[0,1], [0,0], [-1,1]]),
                    20: np.array([[0,2], [0,0], [-1,1]]),
                    21: np.array([[-1,1], [0,0], [0,1]]),
                    22: np.array([[-1,1], [0,0], [0,2]]),
-                   23: np.array([[-1,1], [0,0], [0,-1]]), # does the negative stuff work?
-                   #23: np.array([[-1,1], [0,0], [-1,0]]), # does the negative stuff work?
-                   24: np.array([[-1,1], [0,0], [0,-2]]), # does the negative stuff work?
-                   #24: np.array([[-1,1], [0,0], [-2,0]]), # does the negative stuff work?
+                   23: np.array([[-1,1], [0,0], [-1,0]]), # does the negative stuff work?
+                   24: np.array([[-1,1], [0,0], [-2,0]]), # does the negative stuff work?
                    25: np.array([[-1,0], [0,0], [-1,1]]),
                    26: np.array([[-2,0], [0,0], [-1,1]]),
                    27: np.array([[-1,0], [0,0], [-1,1]]),
                    28: np.array([[-2,0], [0,0], [-1,1]]),
                    29: np.array([[-1,1], [0,0], [0,1]]),
                    30: np.array([[-1,1], [0,0], [0,2]]),
-                   31: np.array([[-1,1], [0,0], [0,-1]]), # does the negative stuff work?
-                   #31: np.array([[-1,1], [0,0], [-1,0]]), # does the negative stuff work?
-                   32: np.array([[-1,1], [0,0], [0,-2]]), # does the negative stuff work? # now switch which dimension stays the same
-                   #32: np.array([[-1,1], [0,0], [-2,0]]), # does the negative stuff work? # now switch which dimension stays the same
+                   31: np.array([[-1,1], [0,0], [-1,0]]), # does the negative stuff work?
+                   32: np.array([[-1,1], [0,0], [-2,0]]), # does the negative stuff work? # now switch which dimension stays the same
                    33: np.array([[0,0], [0,1], [-1,1]]),
                    34: np.array([[0,0], [0,2], [-1,1]]),
                    35: np.array([[0,0], [0,1], [-1,1]]),
                    36: np.array([[0,0], [0,2], [-1,1]]),
                    37: np.array([[0,0], [-1,1], [0,1]]),
                    38: np.array([[0,0], [-1,1], [0,2]]),
-                   39: np.array([[0,0], [-1,1], [0,-1]]), # does the negative stuff work?
-                   #39: np.array([[0,0], [-1,1], [-1,0]]), # does the negative stuff work?
-                   40: np.array([[0,0], [-1,1], [0,-2]]), # does the negative stuff work?
-                   #40: np.array([[0,0], [-1,1], [-2,0]]), # does the negative stuff work?
+                   39: np.array([[0,0], [-1,1], [-1,0]]), # does the negative stuff work?
+                   40: np.array([[0,0], [-1,1], [-2,0]]), # does the negative stuff work?
                    41: np.array([[0,0], [-1,0], [-1,1]]),
                    42: np.array([[0,0], [-2,0], [-1,1]]),
                    43: np.array([[0,0], [-1,0], [-1,1]]),
                    44: np.array([[0,0], [-2,0], [-1,1]]),
                    45: np.array([[0,0], [-1,1], [0,1]]),
                    46: np.array([[0,0], [-1,1], [0,2]]),
-                   47: np.array([[0,0], [-1,1], [0,-1]]), # does the negative stuff work?
-                   #47: np.array([[0,0], [-1,1], [-1,0]]), # does the negative stuff work?
-                   48: np.array([[0,0], [-1,1], [0,-2]]) # does the negative stuff work? # now switch which dimension stays the same
-                   #48: np.array([[0,0], [-1,1], [-2,0]]) # does the negative stuff work? # now switch which dimension stays the same
+                   47: np.array([[0,0], [-1,1], [-1,0]]), # does the negative stuff work?
+                   48: np.array([[0,0], [-1,1], [-2,0]]) # does the negative stuff work? # now switch which dimension stays the same
                    }
 
     self.negative_y_ranges = {7,8,15,16}
+    self.negative_y_ranges = {}
     self.negative_z_ranges = {23,24,31,32,39,40,47,48}
+    self.negative_z_ranges = {}
 
   def calc_possible_actions(self): # need to check now that neighbor is free
     self.possible_actions = {}
@@ -292,15 +282,15 @@ class OccupancyGridMap:
       case 1:
         new_module_position = (module_position[0] + 1, module_position[1], module_position[2])
       case 2:
-        new_module_position = (module_position[0] + 1, module_position[1] + 1, module_position[2])
+        new_module_position = (module_position[0] + 1, module_position[1] - 1, module_position[2])
       case 3:#
         new_module_position = (module_position[0] + 1, module_position[1], module_position[2])
       case 4:
-        new_module_position = (module_position[0] + 1, module_position[1] - 1, module_position[2])
+        new_module_position = (module_position[0] + 1, module_position[1] + 1, module_position[2])
       case 5:
-        new_module_position = (module_position[0], module_position[1] - 1, module_position[2])
+        new_module_position = (module_position[0], module_position[1] + 1, module_position[2])
       case 6:
-        new_module_position = (module_position[0] + 1, module_position[1] - 1, module_position[2])
+        new_module_position = (module_position[0] + 1, module_position[1] + 1, module_position[2])
       case 7:
         new_module_position = (module_position[0], module_position[1] - 1, module_position[2])
       case 8:
@@ -308,15 +298,15 @@ class OccupancyGridMap:
       case 9:
         new_module_position = (module_position[0] - 1, module_position[1], module_position[2])
       case 10:
-        new_module_position = (module_position[0] - 1, module_position[1] + 1, module_position[2])
+        new_module_position = (module_position[0] - 1, module_position[1] - 1, module_position[2])
       case 11:
         new_module_position = (module_position[0] - 1, module_position[1], module_position[2])
       case 12:#
-        new_module_position = (module_position[0] - 1, module_position[1] - 1, module_position[2])
+        new_module_position = (module_position[0] - 1, module_position[1] + 1, module_position[2])
       case 13:
-        new_module_position = (module_position[0], module_position[1] - 1, module_position[2])
+        new_module_position = (module_position[0], module_position[1] + 1, module_position[2])
       case 14:
-        new_module_position = (module_position[0] - 1, module_position[1] - 1, module_position[2])
+        new_module_position = (module_position[0] - 1, module_position[1] + 1, module_position[2])
       case 15:
         new_module_position = (module_position[0], module_position[1] - 1, module_position[2])
       case 16:#####################
@@ -324,31 +314,31 @@ class OccupancyGridMap:
       case 17:
         new_module_position = (module_position[0] + 1, module_position[1], module_position[2])
       case 18:
-        new_module_position = (module_position[0] + 1, module_position[1], module_position[2] + 1)
+        new_module_position = (module_position[0] + 1, module_position[1], module_position[2] - 1) #fixed
       case 19:#
         new_module_position = (module_position[0] + 1, module_position[1], module_position[2])
       case 20:
-        new_module_position = (module_position[0] + 1, module_position[1], module_position[2] - 1)
+        new_module_position = (module_position[0] + 1, module_position[1], module_position[2] + 1) #fixed
       case 21:
-        new_module_position = (module_position[0], module_position[1], module_position[2] - 1)
+        new_module_position = (module_position[0], module_position[1], module_position[2] + 1) #fixed
       case 22:
-        new_module_position = (module_position[0] + 1, module_position[1], module_position[2] - 1)
+        new_module_position = (module_position[0] + 1, module_position[1], module_position[2] + 1) #fixed
       case 23:
-        new_module_position = (module_position[0], module_position[1], module_position[2] - 1)
+        new_module_position = (module_position[0], module_position[1], module_position[2] - 1) #fixed
       case 24:
         new_module_position = (module_position[0] + 1, module_position[1], module_position[2] - 1)
       case 25:
         new_module_position = (module_position[0] - 1, module_position[1], module_position[2])
       case 26:
-        new_module_position = (module_position[0] - 1, module_position[1], module_position[2] + 1)
+        new_module_position = (module_position[0] - 1, module_position[1], module_position[2] - 1)
       case 27:
         new_module_position = (module_position[0] - 1, module_position[1], module_position[2])
       case 28:#
-        new_module_position = (module_position[0] - 1, module_position[1], module_position[2] - 1)
+        new_module_position = (module_position[0] - 1, module_position[1], module_position[2] + 1)
       case 29:
-        new_module_position = (module_position[0], module_position[1], module_position[2] - 1)
+        new_module_position = (module_position[0], module_position[1], module_position[2] + 1)
       case 30:
-        new_module_position = (module_position[0] - 1, module_position[1], module_position[2] - 1)
+        new_module_position = (module_position[0] - 1, module_position[1], module_position[2] + 1)
       case 31:
         new_module_position = (module_position[0], module_position[1], module_position[2] - 1)
       case 32:#####################
@@ -356,15 +346,15 @@ class OccupancyGridMap:
       case 33:
         new_module_position = (module_position[0], module_position[1] + 1, module_position[2])
       case 34:
-        new_module_position = (module_position[0], module_position[1] + 1, module_position[2] + 1)
+        new_module_position = (module_position[0], module_position[1] + 1, module_position[2] - 1)
       case 35:#
         new_module_position = (module_position[0], module_position[1] + 1, module_position[2])
       case 36:
-        new_module_position = (module_position[0], module_position[1] + 1, module_position[2] - 1)
+        new_module_position = (module_position[0], module_position[1] + 1, module_position[2] + 1)
       case 37:
-        new_module_position = (module_position[0], module_position[1], module_position[2] - 1)
+        new_module_position = (module_position[0], module_position[1], module_position[2] + 1)
       case 38:
-        new_module_position = (module_position[0], module_position[1] + 1, module_position[2] + 1) # flipped z
+        new_module_position = (module_position[0], module_position[1] + 1, module_position[2] + 1) 
       case 39:
         new_module_position = (module_position[0], module_position[1], module_position[2] - 1)
       case 40:
@@ -372,15 +362,15 @@ class OccupancyGridMap:
       case 41:
         new_module_position = (module_position[0], module_position[1] - 1, module_position[2])
       case 42:
-        new_module_position = (module_position[0], module_position[1] - 1, module_position[2] + 1)
+        new_module_position = (module_position[0], module_position[1] - 1, module_position[2] - 1)
       case 43:
         new_module_position = (module_position[0], module_position[1] - 1, module_position[2])
       case 44:#
-        new_module_position = (module_position[0], module_position[1] - 1, module_position[2] - 1)
+        new_module_position = (module_position[0], module_position[1] - 1, module_position[2] + 1)
       case 45:
-        new_module_position = (module_position[0], module_position[1], module_position[2] - 1)
+        new_module_position = (module_position[0], module_position[1], module_position[2] + 1)
       case 46:
-        new_module_position = (module_position[0], module_position[1] - 1, module_position[2] - 1)
+        new_module_position = (module_position[0], module_position[1] - 1, module_position[2] + 1)
       case 47:
         new_module_position = (module_position[0], module_position[1], module_position[2] - 1)
       case 48:#####################
