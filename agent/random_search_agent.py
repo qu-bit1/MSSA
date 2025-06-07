@@ -1,4 +1,4 @@
-from base_agent import Agent
+from agent.base_agent import Agent
 
 class RandomSearchAgent(Agent):
     def __init__(self, max_steps=1000):
@@ -7,10 +7,14 @@ class RandomSearchAgent(Agent):
         self.steps_taken = 0
         self.success = False
 
-    def search(self, ogm):
+    def search(self, ogm, visualizer=None):
         ogm.init_actions()
 
         while self.steps_taken < self.max_steps:
+
+            if visualizer:
+                visualizer.capture_state()
+
             possible_actions = ogm.calc_possible_actions()
             module, action = self.select_action(possible_actions, len(ogm.modules))
             ogm.take_action(module, action)
@@ -19,7 +23,13 @@ class RandomSearchAgent(Agent):
             if ogm.check_final():
                 self.success = True
                 print(f"Goal reached in {self.steps_taken} steps!")
+
+                if visualizer:
+                    visualizer.capture_state()
                 return True
+
+        if visualizer:
+            visualizer.capture_state()
 
         print(f"Failed to reach goal in {self.max_steps} steps.")
         return False
